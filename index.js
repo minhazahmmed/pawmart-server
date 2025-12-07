@@ -68,7 +68,7 @@ async function run() {
 
     //my services
 
-    app.get("/my-services", async (req, res) => {
+     app.get("/my-services", async (req, res) => {
       const { myEmail } = req.query;
       const query = { email: myEmail };
       const result = await petServices.find(query).toArray();
