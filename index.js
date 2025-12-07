@@ -30,7 +30,7 @@ async function run() {
 
     //  Post or add services in database
 
-    app.post("/services", async (req, res) => {
+     app.post("/services", async (req, res) => {
       const data = req.body;
       const date = new Date();
       data.createdAt = date;
