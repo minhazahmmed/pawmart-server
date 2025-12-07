@@ -57,7 +57,7 @@ async function run() {
 
     //get one services from database with id
 
-    app.get("/services/:id", async (req, res) => {
+     app.get("/services/:id", async (req, res) => {
       const id = req.params;
       console.log(id);
 
