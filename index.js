@@ -77,7 +77,7 @@ async function run() {
 
     // Update Service
 
-    app.put("/update/:id", async (req, res) => {
+     app.put("/update/:id", async (req, res) => {
       const data = req.body;
       const { id } = req.params;
       const query = { _id: new ObjectId(id) };
