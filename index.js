@@ -122,8 +122,10 @@ app.get('/orders',async(req,res)=>{
   } finally {
     // await client.close();
   }
+  
 }
 run().catch(console.dir);
+
 
 app.get("/", (req, res) => {
   res.send("Hello developers");
