@@ -9,8 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri =
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.t8lhpna.mongodb.net/?appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.t8lhpna.mongodb.net/?appName=Cluster0`;
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -30,7 +29,7 @@ async function run() {
 
     //  Post or add services in database
 
-     app.post("/services", async (req, res) => {
+    app.post("/services", async (req, res) => {
       const data = req.body;
       const date = new Date();
       data.createdAt = date;
@@ -42,22 +41,21 @@ async function run() {
 
     // get services from database
 
-     app.get("/services", async (req, res) => {
-      const {category} = req.query;
-      console.log(category)
-      const query = {}
-      if(category){
+    app.get("/services", async (req, res) => {
+      const { category } = req.query;
+      console.log(category);
+      const query = {};
+      if (category) {
         query.category = category;
-      
       }
-    
+
       const result = await petServices.find(query).toArray();
       res.send(result);
     });
 
     //get one services from database with id
 
-     app.get("/services/:id", async (req, res) => {
+    app.get("/services/:id", async (req, res) => {
       const id = req.params;
       console.log(id);
 
@@ -68,7 +66,7 @@ async function run() {
 
     //my services
 
-     app.get("/my-services", async (req, res) => {
+    app.get("/my-services", async (req, res) => {
       const { myEmail } = req.query;
       const query = { email: myEmail };
       const result = await petServices.find(query).toArray();
@@ -77,7 +75,7 @@ async function run() {
 
     // Update Service
 
-     app.put("/update/:id", async (req, res) => {
+    app.put("/update/:id", async (req, res) => {
       const data = req.body;
       const { id } = req.params;
       const query = { _id: new ObjectId(id) };
@@ -88,32 +86,28 @@ async function run() {
       res.send(result);
     });
 
-// Delete Services
+    // Delete Services
 
-app.delete('/delete/:id',async(req,res)=>{
-  const id = req.params;
- const query = { _id: new ObjectId(id) };
- const result = await petServices.deleteOne(query)
- res.send(result)
-})
+    app.delete("/delete/:id", async (req, res) => {
+      const id = req.params;
+      const query = { _id: new ObjectId(id) };
+      const result = await petServices.deleteOne(query);
+      res.send(result);
+    });
 
+    // Orders
+    app.post("/orders", async (req, res) => {
+      const data = req.body;
+      console.log(data);
+      const result = await orderCollections.insertOne(data);
+      res.status(201).send(result);
+    });
 
-// Orders
-app.post('/orders',async(req,res)=>{
-  const data = req.body;
-  console.log(data);
-  const result = await orderCollections.insertOne(data)
-  res.status(201).send(result)
-  
-
-})
-
-// Show My Orders
-app.get('/orders',async(req,res)=>{
-  const result = await orderCollections.find().toArray();
-  res.status(200).send(result)
-})
-
+    // Show My Orders
+    app.get("/orders", async (req, res) => {
+      const result = await orderCollections.find().toArray();
+      res.status(200).send(result);
+    });
 
     // await client.db("admin").command({ ping: 1 });
     console.log(
@@ -122,10 +116,8 @@ app.get('/orders',async(req,res)=>{
   } finally {
     // await client.close();
   }
-  
 }
 run().catch(console.dir);
-
 
 app.get("/", (req, res) => {
   res.send("Hello developers");
