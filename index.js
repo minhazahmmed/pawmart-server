@@ -42,7 +42,7 @@ async function run() {
 
     // get services from database
 
-    app.get("/services", async (req, res) => {
+     app.get("/services", async (req, res) => {
       const {category} = req.query;
       console.log(category)
       const query = {}
